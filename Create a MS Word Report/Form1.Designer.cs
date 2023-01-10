@@ -39,6 +39,8 @@ namespace Create_a_MS_Word_Report
             this.txtbx_proj_name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tab_header = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbobx_header_colour = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@ namespace Create_a_MS_Word_Report
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btn_close = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbobx_header_colour = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -170,6 +170,42 @@ namespace Create_a_MS_Word_Report
             this.tab_header.TabIndex = 0;
             this.tab_header.Text = "Header";
             this.tab_header.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(83, 252);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 20);
+            this.label2.TabIndex = 75;
+            this.label2.Text = "Font Colour";
+            // 
+            // cmbobx_header_colour
+            // 
+            this.cmbobx_header_colour.FormattingEnabled = true;
+            this.cmbobx_header_colour.Items.AddRange(new object[] {
+            "Black",
+            "Blue",
+            "Bright Green",
+            "Dark Blue",
+            "Dark Red",
+            "Dark Yellow",
+            "Grey 25",
+            "Grey 50",
+            "Green",
+            "Pink",
+            "Red",
+            "Teal",
+            "Turquoise",
+            "Violet",
+            "White",
+            "Yellow"});
+            this.cmbobx_header_colour.Location = new System.Drawing.Point(192, 249);
+            this.cmbobx_header_colour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbobx_header_colour.Name = "cmbobx_header_colour";
+            this.cmbobx_header_colour.Size = new System.Drawing.Size(178, 28);
+            this.cmbobx_header_colour.TabIndex = 74;
             // 
             // label11
             // 
@@ -342,42 +378,6 @@ namespace Create_a_MS_Word_Report
             this.btn_close.Text = "Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(83, 252);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 20);
-            this.label2.TabIndex = 75;
-            this.label2.Text = "Font Colour";
-            // 
-            // cmbobx_header_colour
-            // 
-            this.cmbobx_header_colour.FormattingEnabled = true;
-            this.cmbobx_header_colour.Items.AddRange(new object[] {
-            "Black",
-            "Blue",
-            "Bright Green",
-            "Dark Blue",
-            "Dark Red",
-            "Dark Yellow",
-            "Grey 25",
-            "Grey 50",
-            "Green",
-            "Pink",
-            "Red",
-            "Teal",
-            "Turquoise",
-            "Violet",
-            "White",
-            "Yellow"});
-            this.cmbobx_header_colour.Location = new System.Drawing.Point(192, 249);
-            this.cmbobx_header_colour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmbobx_header_colour.Name = "cmbobx_header_colour";
-            this.cmbobx_header_colour.Size = new System.Drawing.Size(178, 28);
-            this.cmbobx_header_colour.TabIndex = 74;
             // 
             // Form1
             // 

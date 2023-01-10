@@ -6,7 +6,7 @@ namespace Create_a_MS_Word_Report
     public partial class Form1
     {
 
-        private void CreateHeader(Word._Document word_doc)
+        private void CreateHeader(Word._Document word_doc) //Header colours are not the colour you choose unless you are in the header
         {
             Word.WdColorIndex headerFontColour;
 
