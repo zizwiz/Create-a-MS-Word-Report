@@ -1,4 +1,5 @@
-﻿using Word = Microsoft.Office.Interop.Word;
+﻿using System;
+using Word = Microsoft.Office.Interop.Word;
 
 
 namespace Create_a_MS_Word_Report
@@ -8,66 +9,24 @@ namespace Create_a_MS_Word_Report
 
         private void CreateHeader(Word._Document word_doc) //Header colours are not the colour you choose unless you are in the header
         {
-            Word.WdColorIndex headerFontColour;
+           // choose the font colour
+            Word.WdColorIndex[] headerFontColour = {Word.WdColorIndex.wdBlack, Word.WdColorIndex.wdBlue, Word.WdColorIndex.wdBrightGreen,
+                Word.WdColorIndex.wdDarkBlue, Word.WdColorIndex.wdDarkRed, Word.WdColorIndex.wdDarkYellow, Word.WdColorIndex.wdGray25,
+                Word.WdColorIndex.wdGray50, Word.WdColorIndex.wdGreen, Word.WdColorIndex.wdPink, Word.WdColorIndex.wdRed, Word.WdColorIndex.wdTeal,
+                Word.WdColorIndex.wdTurquoise, Word.WdColorIndex.wdViolet, Word.WdColorIndex.wdWhite, Word.WdColorIndex.wdYellow};
+            
+            //choose teh underlining style
+            Word.WdUnderline[] headerUnderlineStyle = { Word.WdUnderline.wdUnderlineDash, Word.WdUnderline.wdUnderlineDashHeavy, 
+                Word.WdUnderline.wdUnderlineDashLong, Word.WdUnderline.wdUnderlineDashLongHeavy, 
+                Word.WdUnderline.wdUnderlineDotDash, Word.WdUnderline.wdUnderlineDotDashHeavy, 
+                Word.WdUnderline.wdUnderlineDotDotDash, Word.WdUnderline.wdUnderlineDotDotDashHeavy, 
+                Word.WdUnderline.wdUnderlineDotted, Word.WdUnderline.wdUnderlineDottedHeavy, 
+                Word.WdUnderline.wdUnderlineDouble, Word.WdUnderline.wdUnderlineNone, 
+                Word.WdUnderline.wdUnderlineSingle, Word.WdUnderline.wdUnderlineThick, 
+                Word.WdUnderline.wdUnderlineWavy, Word.WdUnderline.wdUnderlineWavyDouble, 
+                Word.WdUnderline.wdUnderlineWavyHeavy, Word.WdUnderline.wdUnderlineWords };
 
-            switch (cmbobx_header_colour.SelectedIndex)
-            {
-                case 0:
-                    headerFontColour = Word.WdColorIndex.wdBlack;
-                    break;
-                case 1:
-                    headerFontColour = Word.WdColorIndex.wdBlue;
-                    break;
-                case 2:
-                    headerFontColour = Word.WdColorIndex.wdBrightGreen;
-                    break;
-                case 3:
-                    headerFontColour = Word.WdColorIndex.wdBrightGreen;
-                    break;
-                case 4:
-                    headerFontColour = Word.WdColorIndex.wdDarkBlue;
-                    break;
-                case 5:
-                    headerFontColour = Word.WdColorIndex.wdDarkRed;
-                    break;
-                case 6:
-                    headerFontColour = Word.WdColorIndex.wdDarkYellow;
-                    break;
-                case 7:
-                    headerFontColour = Word.WdColorIndex.wdGray25;
-                    break;
-                case 8:
-                    headerFontColour = Word.WdColorIndex.wdGray50;
-                    break;
-                case 9:
-                    headerFontColour = Word.WdColorIndex.wdGreen;
-                    break;
-                case 10:
-                    headerFontColour = Word.WdColorIndex.wdPink;
-                    break;
-                case 11:
-                    headerFontColour = Word.WdColorIndex.wdRed;
-                    break;
-                case 12:
-                    headerFontColour = Word.WdColorIndex.wdTeal;
-                    break;
-                case 13:
-                    headerFontColour = Word.WdColorIndex.wdTurquoise;
-                    break;
-                case 14:
-                    headerFontColour = Word.WdColorIndex.wdViolet;
-                    break;
-                case 15:
-                    headerFontColour = Word.WdColorIndex.wdWhite;
-                    break;
-                case 16:
-                    headerFontColour = Word.WdColorIndex.wdYellow;
-                    break;
-                default:
-                    headerFontColour = Word.WdColorIndex.wdBlack;
-                    break;
-            }
-
+            
 
             //Add header into the document  
             foreach (Word.Section section in word_doc.Sections)
@@ -76,9 +35,27 @@ namespace Create_a_MS_Word_Report
                 Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 headerRange.Fields.Add(headerRange, Word.WdFieldType.wdFieldPage);
                 headerRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                headerRange.Font.ColorIndex = headerFontColour; //font colour
+                headerRange.Font.ColorIndex = headerFontColour[cmbobx_header_colour.SelectedIndex];    //font colour
+                headerRange.Font.Name =  cmbobx_header_fontname.SelectedItem.ToString(); //font name
                 headerRange.Font.Size = float.Parse(cmbobx_header_fontsize.SelectedItem.ToString()); //size of font
-                headerRange.Font.Bold = (int)Word.WdConstants.wdToggle; // Toggle the title to a Bold Font
+                
+                headerRange.Font.Bold = chkbx_header_bold.Checked? 1:0 ; 
+                headerRange.Font.Italic = chkbx_header_italic.Checked? 1:0; //(int)Word.WdConstants.wdToggle;
+                headerRange.Font.StrikeThrough = (int)Word.WdConstants.wdToggle;
+                headerRange.Font.AllCaps = 0;
+                headerRange.Font.DoubleStrikeThrough = 0;
+                headerRange.Font.BoldBi = 0;
+                headerRange.Font.Emboss = 0;
+                headerRange.Font.Engrave = 0;
+                headerRange.Font.ItalicBi = 0;
+                headerRange.Font.Outline = 0;
+                headerRange.Font.Shadow = 0;
+               
+
+                headerRange.Font.Underline = headerUnderlineStyle[cmbobx_header_underline_style.SelectedIndex]; //choose type of underlining
+
+
+
                 headerRange.Text = "Project: " + txtbx_proj_name.Text + " Report";
             }
         }

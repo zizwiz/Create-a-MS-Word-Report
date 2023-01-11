@@ -23,7 +23,7 @@ namespace Create_a_MS_Word_Report
             cmbobx_header_fontsize.SelectedIndex = 4;
             cmbobx_header_style.SelectedIndex = 2;
             cmbobx_header_colour.SelectedIndex = 0;
-
+            cmbobx_header_underline_style.SelectedIndex = 11;
 
         }
 

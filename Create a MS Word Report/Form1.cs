@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word; // now got to ref and in properties set "Embed Interop types" to false
@@ -8,6 +7,11 @@ namespace Create_a_MS_Word_Report
 {
     public partial class Form1 : Form
     {
+        private object oMissing = Missing.Value;
+        private object oTrue = true;
+        private object oFalse = false;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -33,17 +37,21 @@ namespace Create_a_MS_Word_Report
 
         private void btn_create_Click(object sender, EventArgs e)
         {
+           // object oMissing = Missing.Value;
+
             //This uses the styles from your default-default word doc template
             //change them below if you have your own template
 
-            Word._Application WinWord = new Word.ApplicationClass(); // create a word object and show it.
+            Word.Application WinWord = new Word.Application(); // create a word object and show it.
+            Word.Document word_doc = new Word.Document();
+            
             WinWord.Visible = true; //Set status for word application is to be visible or not.
             WinWord.ShowAnimation = false; //Set animation status for word application
 
             // Create the Word document, choose your template here or you will get the default-default one.
             // Add(Template, New Template, DocType, Visible).
-            Word._Document word_doc = WinWord.Documents.Add(
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+           word_doc = WinWord.Documents.Add(
+                ref oMissing, ref oMissing, ref oMissing, ref oMissing);
 
 
             if (chkbx_page_header.Checked) //Only create if we ticked to say so
@@ -86,7 +94,7 @@ namespace Create_a_MS_Word_Report
             para2.Range.Text = "Loads and Loads of text More much more";
             para2.Range.InsertParagraphAfter();
 
-
+            WinWord.Visible = false; //Make invisible so we do not need to keep redrawing the whole document.
             //Create a 5X5 table and insert some dummy record 
             Word.Paragraph para3 = word_doc.Paragraphs.Add(Type.Missing);
             Word.Table myTable = word_doc.Tables.Add(para3.Range, 5, 5, Type.Missing, Type.Missing);
@@ -121,8 +129,8 @@ namespace Create_a_MS_Word_Report
             myTable.Columns[1].Width = WinWord.InchesToPoints(1); //Change width of columns 1 & 2
             myTable.Columns[2].Width = WinWord.InchesToPoints(1);
             para3.Range.InsertParagraphAfter();
-            
 
+            WinWord.Visible = true;
             Word.Paragraph para5 = word_doc.Paragraphs.Add(Type.Missing);
             string picture_file =
                 @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\mypic.png";
@@ -138,7 +146,7 @@ namespace Create_a_MS_Word_Report
             //Insert a chart.
             object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
             object oRng = word_doc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            object oMissing = Missing.Value;
+            
             Word.Table oTable;
             Word.Range wrdRng = word_doc.Bookmarks.get_Item(ref oEndOfDoc).Range;
 
@@ -204,5 +212,7 @@ namespace Create_a_MS_Word_Report
                 }
             }
         }
+
+        
     }
 }

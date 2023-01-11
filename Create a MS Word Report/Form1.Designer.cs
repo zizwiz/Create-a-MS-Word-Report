@@ -39,6 +39,9 @@ namespace Create_a_MS_Word_Report
             this.txtbx_proj_name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tab_header = new System.Windows.Forms.TabPage();
+            this.chkbx_header_bold = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbobx_header_underline_style = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbobx_header_colour = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -56,6 +59,7 @@ namespace Create_a_MS_Word_Report
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btn_close = new System.Windows.Forms.Button();
+            this.chkbx_header_italic = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -155,6 +159,10 @@ namespace Create_a_MS_Word_Report
             // 
             // tab_header
             // 
+            this.tab_header.Controls.Add(this.chkbx_header_italic);
+            this.tab_header.Controls.Add(this.chkbx_header_bold);
+            this.tab_header.Controls.Add(this.label3);
+            this.tab_header.Controls.Add(this.cmbobx_header_underline_style);
             this.tab_header.Controls.Add(this.label2);
             this.tab_header.Controls.Add(this.cmbobx_header_colour);
             this.tab_header.Controls.Add(this.label11);
@@ -171,10 +179,58 @@ namespace Create_a_MS_Word_Report
             this.tab_header.Text = "Header";
             this.tab_header.UseVisualStyleBackColor = true;
             // 
+            // chkbx_header_bold
+            // 
+            this.chkbx_header_bold.AutoSize = true;
+            this.chkbx_header_bold.Location = new System.Drawing.Point(59, 376);
+            this.chkbx_header_bold.Name = "chkbx_header_bold";
+            this.chkbx_header_bold.Size = new System.Drawing.Size(67, 24);
+            this.chkbx_header_bold.TabIndex = 78;
+            this.chkbx_header_bold.Text = "Bold";
+            this.chkbx_header_bold.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(31, 252);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(153, 20);
+            this.label3.TabIndex = 77;
+            this.label3.Text = "Font Underline Style";
+            // 
+            // cmbobx_header_underline_style
+            // 
+            this.cmbobx_header_underline_style.FormattingEnabled = true;
+            this.cmbobx_header_underline_style.Items.AddRange(new object[] {
+            "Dash",
+            "DashHeavy",
+            "DashLong",
+            "DashLongHeavy",
+            "DotDash",
+            "DotDashHeavy",
+            "DotDotDash",
+            "DotDotDashHeavy",
+            "Dotted",
+            "DottedHeavy",
+            "Double",
+            "None",
+            "Single",
+            "Thick",
+            "Wavy",
+            "WavyDouble",
+            "WavyHeavy",
+            "Words"});
+            this.cmbobx_header_underline_style.Location = new System.Drawing.Point(192, 249);
+            this.cmbobx_header_underline_style.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbobx_header_underline_style.Name = "cmbobx_header_underline_style";
+            this.cmbobx_header_underline_style.Size = new System.Drawing.Size(178, 28);
+            this.cmbobx_header_underline_style.TabIndex = 76;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(83, 252);
+            this.label2.Location = new System.Drawing.Point(31, 290);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(92, 20);
@@ -201,7 +257,7 @@ namespace Create_a_MS_Word_Report
             "Violet",
             "White",
             "Yellow"});
-            this.cmbobx_header_colour.Location = new System.Drawing.Point(192, 249);
+            this.cmbobx_header_colour.Location = new System.Drawing.Point(192, 287);
             this.cmbobx_header_colour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbobx_header_colour.Name = "cmbobx_header_colour";
             this.cmbobx_header_colour.Size = new System.Drawing.Size(178, 28);
@@ -210,7 +266,7 @@ namespace Create_a_MS_Word_Report
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(83, 214);
+            this.label11.Location = new System.Drawing.Point(31, 214);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(81, 20);
@@ -220,7 +276,7 @@ namespace Create_a_MS_Word_Report
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(83, 176);
+            this.label10.Location = new System.Drawing.Point(31, 176);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 20);
@@ -230,7 +286,7 @@ namespace Create_a_MS_Word_Report
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(83, 138);
+            this.label9.Location = new System.Drawing.Point(31, 138);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 20);
@@ -379,6 +435,16 @@ namespace Create_a_MS_Word_Report
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
+            // chkbx_header_italic
+            // 
+            this.chkbx_header_italic.AutoSize = true;
+            this.chkbx_header_italic.Location = new System.Drawing.Point(132, 376);
+            this.chkbx_header_italic.Name = "chkbx_header_italic";
+            this.chkbx_header_italic.Size = new System.Drawing.Size(76, 24);
+            this.chkbx_header_italic.TabIndex = 79;
+            this.chkbx_header_italic.Text = "Italics";
+            this.chkbx_header_italic.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -432,6 +498,10 @@ namespace Create_a_MS_Word_Report
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbobx_header_colour;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbobx_header_underline_style;
+        private System.Windows.Forms.CheckBox chkbx_header_bold;
+        private System.Windows.Forms.CheckBox chkbx_header_italic;
     }
 }
 
