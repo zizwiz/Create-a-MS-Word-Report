@@ -11,6 +11,8 @@ namespace Create_a_MS_Word_Report
         private object oTrue = true;
         private object oFalse = false;
 
+        Word.Application WinWord = new Word.Application(); // create a word object and show it.
+        Word.Document word_doc = new Word.Document();
 
         public Form1()
         {
@@ -42,8 +44,7 @@ namespace Create_a_MS_Word_Report
             //This uses the styles from your default-default word doc template
             //change them below if you have your own template
 
-            Word.Application WinWord = new Word.Application(); // create a word object and show it.
-            Word.Document word_doc = new Word.Document();
+           
             
             WinWord.Visible = true; //Set status for word application is to be visible or not.
             WinWord.ShowAnimation = false; //Set animation status for word application
@@ -61,16 +62,7 @@ namespace Create_a_MS_Word_Report
 
             if (chkbx_page_footer.Checked)
             {
-                //Add the footers into the document  
-                foreach (Word.Section wordSection in word_doc.Sections)
-                {
-                    //Get the footer range and add the footer details.  
-                    Word.Range footerRange = wordSection.Footers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = Word.WdColorIndex.wdDarkRed;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "Footer text goes here";
-                }
+                CreateFooter(word_doc);
             }
 
 
@@ -213,6 +205,6 @@ namespace Create_a_MS_Word_Report
             }
         }
 
-        
+       
     }
 }
