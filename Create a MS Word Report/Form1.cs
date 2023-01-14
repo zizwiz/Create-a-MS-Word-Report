@@ -10,6 +10,7 @@ namespace Create_a_MS_Word_Report
         private object oMissing = Missing.Value;
         private object oTrue = true;
         private object oFalse = false;
+        private Object oTemplatePath = null;
 
         Word.Application WinWord = new Word.Application(); // create a word object and show it.
         Word.Document word_doc = new Word.Document();
@@ -24,10 +25,6 @@ namespace Create_a_MS_Word_Report
             SetUp();
 
             Text += " : v" + Assembly.GetExecutingAssembly().GetName().Version; // put in the version number
-
-
-
-
 
 
         }
@@ -52,7 +49,7 @@ namespace Create_a_MS_Word_Report
             // Create the Word document, choose your template here or you will get the default-default one.
             // Add(Template, New Template, DocType, Visible).
            word_doc = WinWord.Documents.Add(
-                ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+               ref oTemplatePath, ref oMissing, ref oMissing, ref oMissing);
 
 
             if (chkbx_page_header.Checked) //Only create if we ticked to say so
@@ -205,6 +202,28 @@ namespace Create_a_MS_Word_Report
             }
         }
 
-       
+        //Choose teh template we will be using
+        private void btn_choose_doc_template_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Open Template Doc.",
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "dotx",
+                Filter = "Template files (*.dotx)|*.dotx",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+               //The location of the template we will be using
+                oTemplatePath = openFileDialog1.FileName;
+                
+            }
+        }
     }
 }

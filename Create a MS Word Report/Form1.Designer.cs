@@ -32,7 +32,7 @@ namespace Create_a_MS_Word_Report
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbobx_footer_background_colour = new System.Windows.Forms.TabControl();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
             this.tab_defaults = new System.Windows.Forms.TabPage();
             this.chkbx_page_footer = new System.Windows.Forms.CheckBox();
             this.chkbx_page_header = new System.Windows.Forms.CheckBox();
@@ -66,19 +66,11 @@ namespace Create_a_MS_Word_Report
             this.cmbobx_header_fontsize = new System.Windows.Forms.ComboBox();
             this.cmbobx_header_fontname = new System.Windows.Forms.ComboBox();
             this.tab_footer = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btn_create = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.btn_close = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbobx_footer_foreground_colour = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbobx_footer_background_colour = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -100,22 +92,31 @@ namespace Create_a_MS_Word_Report
             this.label15 = new System.Windows.Forms.Label();
             this.cmbobx_footer_fontsize = new System.Windows.Forms.ComboBox();
             this.cmbobx_footer_fontname = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btn_create = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.btn_close = new System.Windows.Forms.Button();
+            this.btn_choose_doc_template = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.cmbobx_footer_background_colour.SuspendLayout();
+            this.TabControl1.SuspendLayout();
             this.tab_defaults.SuspendLayout();
             this.tab_header.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tab_footer.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -135,27 +136,28 @@ namespace Create_a_MS_Word_Report
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.cmbobx_footer_background_colour);
+            this.panel1.Controls.Add(this.TabControl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1080, 730);
             this.panel1.TabIndex = 0;
             // 
-            // cmbobx_footer_background_colour
+            // TabControl1
             // 
-            this.cmbobx_footer_background_colour.Controls.Add(this.tab_defaults);
-            this.cmbobx_footer_background_colour.Controls.Add(this.tab_header);
-            this.cmbobx_footer_background_colour.Controls.Add(this.tab_footer);
-            this.cmbobx_footer_background_colour.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbobx_footer_background_colour.Location = new System.Drawing.Point(0, 0);
-            this.cmbobx_footer_background_colour.Name = "cmbobx_footer_background_colour";
-            this.cmbobx_footer_background_colour.SelectedIndex = 0;
-            this.cmbobx_footer_background_colour.Size = new System.Drawing.Size(1080, 730);
-            this.cmbobx_footer_background_colour.TabIndex = 0;
+            this.TabControl1.Controls.Add(this.tab_defaults);
+            this.TabControl1.Controls.Add(this.tab_header);
+            this.TabControl1.Controls.Add(this.tab_footer);
+            this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControl1.Location = new System.Drawing.Point(0, 0);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(1080, 730);
+            this.TabControl1.TabIndex = 0;
             // 
             // tab_defaults
             // 
+            this.tab_defaults.Controls.Add(this.btn_choose_doc_template);
             this.tab_defaults.Controls.Add(this.chkbx_page_footer);
             this.tab_defaults.Controls.Add(this.chkbx_page_header);
             this.tab_defaults.Controls.Add(this.txtbx_proj_name);
@@ -231,7 +233,7 @@ namespace Create_a_MS_Word_Report
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.cmbobx_header_fontsize);
             this.groupBox3.Controls.Add(this.cmbobx_header_fontname);
-            this.groupBox3.Location = new System.Drawing.Point(127, 45);
+            this.groupBox3.Location = new System.Drawing.Point(140, 57);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(766, 577);
             this.groupBox3.TabIndex = 91;
@@ -675,95 +677,12 @@ namespace Create_a_MS_Word_Report
             this.tab_footer.Text = "Footer";
             this.tab_footer.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 739);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1080, 54);
-            this.panel2.TabIndex = 1;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 5;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel5, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel6, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel7, 4, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1080, 54);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btn_create);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(363, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(174, 48);
-            this.panel4.TabIndex = 1;
-            // 
-            // btn_create
-            // 
-            this.btn_create.Location = new System.Drawing.Point(20, 6);
-            this.btn_create.Name = "btn_create";
-            this.btn_create.Size = new System.Drawing.Size(134, 37);
-            this.btn_create.TabIndex = 1;
-            this.btn_create.Text = "Create";
-            this.btn_create.UseVisualStyleBackColor = true;
-            this.btn_create.Click += new System.EventHandler(this.btn_create_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(543, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(174, 48);
-            this.panel5.TabIndex = 2;
-            // 
-            // panel6
-            // 
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(723, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(174, 48);
-            this.panel6.TabIndex = 3;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.btn_close);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(903, 3);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(174, 48);
-            this.panel7.TabIndex = 4;
-            // 
-            // btn_close
-            // 
-            this.btn_close.Location = new System.Drawing.Point(20, 6);
-            this.btn_close.Name = "btn_close";
-            this.btn_close.Size = new System.Drawing.Size(134, 37);
-            this.btn_close.TabIndex = 0;
-            this.btn_close.Text = "Close";
-            this.btn_close.UseVisualStyleBackColor = true;
-            this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.cmbobx_footer_foreground_colour);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.comboBox2);
+            this.groupBox4.Controls.Add(this.cmbobx_footer_background_colour);
             this.groupBox4.Controls.Add(this.groupBox5);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.cmbobx_footer_underline_style);
@@ -868,10 +787,10 @@ namespace Create_a_MS_Word_Report
             this.label8.TabIndex = 88;
             this.label8.Text = "Background Pattern Colour";
             // 
-            // comboBox2
+            // cmbobx_footer_background_colour
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cmbobx_footer_background_colour.FormattingEnabled = true;
+            this.cmbobx_footer_background_colour.Items.AddRange(new object[] {
             "Aqua",
             "Automatic",
             "Black",
@@ -931,11 +850,11 @@ namespace Create_a_MS_Word_Report
             "Violet",
             "White",
             "Yellow"});
-            this.comboBox2.Location = new System.Drawing.Point(296, 225);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(178, 28);
-            this.comboBox2.TabIndex = 87;
+            this.cmbobx_footer_background_colour.Location = new System.Drawing.Point(296, 225);
+            this.cmbobx_footer_background_colour.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbobx_footer_background_colour.Name = "cmbobx_footer_background_colour";
+            this.cmbobx_footer_background_colour.Size = new System.Drawing.Size(178, 28);
+            this.cmbobx_footer_background_colour.TabIndex = 87;
             // 
             // groupBox5
             // 
@@ -1206,6 +1125,99 @@ namespace Create_a_MS_Word_Report
             this.cmbobx_footer_fontname.Size = new System.Drawing.Size(370, 28);
             this.cmbobx_footer_fontname.TabIndex = 68;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 739);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1080, 54);
+            this.panel2.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel5, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel6, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel7, 4, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1080, 54);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btn_create);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(363, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(174, 48);
+            this.panel4.TabIndex = 1;
+            // 
+            // btn_create
+            // 
+            this.btn_create.Location = new System.Drawing.Point(20, 6);
+            this.btn_create.Name = "btn_create";
+            this.btn_create.Size = new System.Drawing.Size(134, 37);
+            this.btn_create.TabIndex = 1;
+            this.btn_create.Text = "Create";
+            this.btn_create.UseVisualStyleBackColor = true;
+            this.btn_create.Click += new System.EventHandler(this.btn_create_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(543, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(174, 48);
+            this.panel5.TabIndex = 2;
+            // 
+            // panel6
+            // 
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(723, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(174, 48);
+            this.panel6.TabIndex = 3;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.btn_close);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(903, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(174, 48);
+            this.panel7.TabIndex = 4;
+            // 
+            // btn_close
+            // 
+            this.btn_close.Location = new System.Drawing.Point(20, 6);
+            this.btn_close.Name = "btn_close";
+            this.btn_close.Size = new System.Drawing.Size(134, 37);
+            this.btn_close.TabIndex = 0;
+            this.btn_close.Text = "Close";
+            this.btn_close.UseVisualStyleBackColor = true;
+            this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
+            // 
+            // btn_choose_doc_template
+            // 
+            this.btn_choose_doc_template.Location = new System.Drawing.Point(601, 105);
+            this.btn_choose_doc_template.Name = "btn_choose_doc_template";
+            this.btn_choose_doc_template.Size = new System.Drawing.Size(135, 73);
+            this.btn_choose_doc_template.TabIndex = 6;
+            this.btn_choose_doc_template.Text = "Choose Doc Template";
+            this.btn_choose_doc_template.UseVisualStyleBackColor = true;
+            this.btn_choose_doc_template.Click += new System.EventHandler(this.btn_choose_doc_template_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1218,7 +1230,7 @@ namespace Create_a_MS_Word_Report
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.cmbobx_footer_background_colour.ResumeLayout(false);
+            this.TabControl1.ResumeLayout(false);
             this.tab_defaults.ResumeLayout(false);
             this.tab_defaults.PerformLayout();
             this.tab_header.ResumeLayout(false);
@@ -1229,16 +1241,16 @@ namespace Create_a_MS_Word_Report
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tab_footer.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1247,7 +1259,7 @@ namespace Create_a_MS_Word_Report
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl cmbobx_footer_background_colour;
+        private System.Windows.Forms.TabControl TabControl1;
         private System.Windows.Forms.TabPage tab_header;
         private System.Windows.Forms.TabPage tab_footer;
         private System.Windows.Forms.Panel panel2;
@@ -1293,7 +1305,7 @@ namespace Create_a_MS_Word_Report
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbobx_footer_foreground_colour;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbobx_footer_background_colour;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -1315,6 +1327,7 @@ namespace Create_a_MS_Word_Report
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cmbobx_footer_fontsize;
         private System.Windows.Forms.ComboBox cmbobx_footer_fontname;
+        private System.Windows.Forms.Button btn_choose_doc_template;
     }
 }
 

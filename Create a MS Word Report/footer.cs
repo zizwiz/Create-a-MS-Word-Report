@@ -56,10 +56,29 @@ namespace Create_a_MS_Word_Report
 
                 WinWord.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekCurrentPageFooter;
                 WinWord.Selection.TypeParagraph();
-
                 WinWord.Selection.Paragraphs.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
-                WinWord.ActiveWindow.Selection.Font.Name = "Arial";
-                WinWord.ActiveWindow.Selection.Font.Size = 8;
+                WinWord.ActiveWindow.Selection.Font.ColorIndex = footerFontColour[cmbobx_header_font_colour.SelectedIndex];    //font colour
+
+                WinWord.ActiveWindow.Selection.Shading.BackgroundPatternColor = footerBackgroundPatternColor[cmbobx_header_background_colour.SelectedIndex];
+                WinWord.ActiveWindow.Selection.Shading.ForegroundPatternColor = footerBackgroundPatternColor[cmbobx_header_background_colour.SelectedIndex];
+
+                WinWord.ActiveWindow.Selection.Font.Name = cmbobx_header_fontname.SelectedItem.ToString(); //font name
+                WinWord.ActiveWindow.Selection.Font.Size = float.Parse(cmbobx_header_fontsize.SelectedItem.ToString()); //size of font
+
+                WinWord.ActiveWindow.Selection.Font.Bold = chkbx_header_bold.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.Italic = chkbx_header_italic.Checked ? 1 : 0; //(int)Word.WdConstants.wdToggle;
+                WinWord.ActiveWindow.Selection.Font.StrikeThrough = rdobtn_header_single_strikethrough.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.DoubleStrikeThrough = rdobtn_header_double_strikethrough.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.AllCaps = chkbx_header_all_caps.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.Emboss = chkbx_header_emboss.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.Engrave = chkbx_header_engrave.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.Outline = chkbx_header_outline.Checked ? 1 : 0;
+                WinWord.ActiveWindow.Selection.Font.Shadow = chkbx_header_shadow.Checked ? 1 : 0;
+
+                WinWord.ActiveWindow.Selection.Font.Underline = footerUnderlineStyle[cmbobx_header_underline_style.SelectedIndex]; //choose type of underlining
+
+
+
 
                 WinWord.ActiveWindow.Selection.TypeText("Page ");
                 Object CurrentPage = Word.WdFieldType.wdFieldPage;

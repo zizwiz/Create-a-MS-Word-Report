@@ -28,6 +28,8 @@ namespace Create_a_MS_Word_Report
             cmbobx_footer_font_colour.SelectedIndex = 0;
             cmbobx_header_background_colour.SelectedIndex = 1;
             cmbobx_footer_background_colour.SelectedIndex = 1;
+            cmbobx_header_foreground_colour.SelectedIndex = 1;
+            cmbobx_footer_foreground_colour.SelectedIndex = 1;
             cmbobx_header_underline_style.SelectedIndex = 11;
             cmbobx_footer_underline_style.SelectedIndex = 11;
 
@@ -64,12 +66,12 @@ namespace Create_a_MS_Word_Report
 
         private void RemoveTab(TabPage tab)
         {
-            cmbobx_footer_background_colour.TabPages.Remove(tab);
+            TabControl1.TabPages.Remove(tab);
         }
 
         private void ShowTab(int pos, TabPage tab)
         {
-           cmbobx_footer_background_colour.TabPages.Insert(cmbobx_footer_background_colour.TabPages.Count, tab);
+           TabControl1.TabPages.Insert(TabControl1.TabPages.Count, tab);
         }
     }
 }
