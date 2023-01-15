@@ -78,9 +78,9 @@ namespace Create_a_MS_Word_Report
                 WinWord.ActiveWindow.Selection.Font.Underline = footerUnderlineStyle[cmbobx_header_underline_style.SelectedIndex]; //choose type of underlining
 
 
+                WinWord.ActiveWindow.Selection.TypeText("Generated: " + DateTime.Now.ToString("h:mm tt ddd d MMM yyyy"));
 
-
-                WinWord.ActiveWindow.Selection.TypeText("Page ");
+                WinWord.ActiveWindow.Selection.TypeText("\tPage ");
                 Object CurrentPage = Word.WdFieldType.wdFieldPage;
                 WinWord.ActiveWindow.Selection.Fields.Add(WinWord.Selection.Range, ref CurrentPage, ref oMissing, ref oMissing);
                 WinWord.ActiveWindow.Selection.TypeText(" of ");

@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMarkUtils.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="footer.cs">
       <SubType>Form</SubType>
     </Compile>

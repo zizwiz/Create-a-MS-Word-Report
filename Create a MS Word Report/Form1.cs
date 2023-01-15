@@ -63,13 +63,32 @@ namespace Create_a_MS_Word_Report
             }
 
 
-
+            
 
             // Report Title.
             Word.Paragraph para0 = word_doc.Paragraphs.Add(Type.Missing);
             para0.Range.Text = "Project: " + txtbx_proj_name.Text + " Report";
             para0.Range.set_Style("Title");
             para0.Range.InsertParagraphAfter();
+
+
+            Word.Paragraph paraA = word_doc.Paragraphs.Add(Type.Missing);
+            //Create bookmark
+           // Word.Bookmark bookmark = new Word.Bookmark(word_doc, "bookmark1");
+
+           // paraA.Range.Bookmarks.Add("bookmark1", "BookmarkRangeStart");
+            paraA.Range.Text = "Before replacement";
+            //paraA.Inlines.AddText("text");
+            //paraA.Inlines.Add(bookmark.BookmarkRangeEnd);
+
+
+            //Add Bookmark  
+            //Word.Section section = word_doc.Sections[0];
+            //section.Paragraphs[2].AppendBookmarkStart("bookmark");
+            //section.Paragraphs[3].AppendBookmarkEnd("bookmark");
+
+            paraA.Range.InsertParagraphAfter();
+
 
             // Create a header.
             Word.Paragraph para1 = word_doc.Paragraphs.Add(Type.Missing);
