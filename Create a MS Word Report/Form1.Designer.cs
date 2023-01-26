@@ -34,6 +34,7 @@ namespace Create_a_MS_Word_Report
             this.panel1 = new System.Windows.Forms.Panel();
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.tab_defaults = new System.Windows.Forms.TabPage();
+            this.btn_choose_doc_template = new System.Windows.Forms.Button();
             this.chkbx_page_footer = new System.Windows.Forms.CheckBox();
             this.chkbx_page_header = new System.Windows.Forms.CheckBox();
             this.txtbx_proj_name = new System.Windows.Forms.TextBox();
@@ -92,6 +93,7 @@ namespace Create_a_MS_Word_Report
             this.label15 = new System.Windows.Forms.Label();
             this.cmbobx_footer_fontsize = new System.Windows.Forms.ComboBox();
             this.cmbobx_footer_fontname = new System.Windows.Forms.ComboBox();
+            this.tab_bookmark_update = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -100,7 +102,6 @@ namespace Create_a_MS_Word_Report
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btn_close = new System.Windows.Forms.Button();
-            this.btn_choose_doc_template = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.TabControl1.SuspendLayout();
@@ -148,6 +149,7 @@ namespace Create_a_MS_Word_Report
             this.TabControl1.Controls.Add(this.tab_defaults);
             this.TabControl1.Controls.Add(this.tab_header);
             this.TabControl1.Controls.Add(this.tab_footer);
+            this.TabControl1.Controls.Add(this.tab_bookmark_update);
             this.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl1.Location = new System.Drawing.Point(0, 0);
             this.TabControl1.Name = "TabControl1";
@@ -168,6 +170,16 @@ namespace Create_a_MS_Word_Report
             this.tab_defaults.TabIndex = 2;
             this.tab_defaults.Text = "Defaults";
             this.tab_defaults.UseVisualStyleBackColor = true;
+            // 
+            // btn_choose_doc_template
+            // 
+            this.btn_choose_doc_template.Location = new System.Drawing.Point(601, 105);
+            this.btn_choose_doc_template.Name = "btn_choose_doc_template";
+            this.btn_choose_doc_template.Size = new System.Drawing.Size(135, 73);
+            this.btn_choose_doc_template.TabIndex = 6;
+            this.btn_choose_doc_template.Text = "Choose Doc Template";
+            this.btn_choose_doc_template.UseVisualStyleBackColor = true;
+            this.btn_choose_doc_template.Click += new System.EventHandler(this.btn_choose_doc_template_Click);
             // 
             // chkbx_page_footer
             // 
@@ -1125,6 +1137,15 @@ namespace Create_a_MS_Word_Report
             this.cmbobx_footer_fontname.Size = new System.Drawing.Size(370, 28);
             this.cmbobx_footer_fontname.TabIndex = 68;
             // 
+            // tab_bookmark_update
+            // 
+            this.tab_bookmark_update.Location = new System.Drawing.Point(4, 29);
+            this.tab_bookmark_update.Name = "tab_bookmark_update";
+            this.tab_bookmark_update.Size = new System.Drawing.Size(1072, 697);
+            this.tab_bookmark_update.TabIndex = 3;
+            this.tab_bookmark_update.Text = "Bookmark Updating";
+            this.tab_bookmark_update.UseVisualStyleBackColor = true;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.tableLayoutPanel2);
@@ -1207,16 +1228,6 @@ namespace Create_a_MS_Word_Report
             this.btn_close.Text = "Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
-            // 
-            // btn_choose_doc_template
-            // 
-            this.btn_choose_doc_template.Location = new System.Drawing.Point(601, 105);
-            this.btn_choose_doc_template.Name = "btn_choose_doc_template";
-            this.btn_choose_doc_template.Size = new System.Drawing.Size(135, 73);
-            this.btn_choose_doc_template.TabIndex = 6;
-            this.btn_choose_doc_template.Text = "Choose Doc Template";
-            this.btn_choose_doc_template.UseVisualStyleBackColor = true;
-            this.btn_choose_doc_template.Click += new System.EventHandler(this.btn_choose_doc_template_Click);
             // 
             // Form1
             // 
@@ -1328,6 +1339,7 @@ namespace Create_a_MS_Word_Report
         private System.Windows.Forms.ComboBox cmbobx_footer_fontsize;
         private System.Windows.Forms.ComboBox cmbobx_footer_fontname;
         private System.Windows.Forms.Button btn_choose_doc_template;
+        private System.Windows.Forms.TabPage tab_bookmark_update;
     }
 }
 

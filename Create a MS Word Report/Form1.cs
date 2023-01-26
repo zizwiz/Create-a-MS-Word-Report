@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word; // now got to ref and in properties set "Embed Interop types" to false
@@ -74,170 +76,76 @@ namespace Create_a_MS_Word_Report
                 CreateFooter(word_doc);
             }
 
-
-
-
-           // // Report Title.
-           // Word.Paragraph para0 = word_doc.Paragraphs.Add(oMissing);
-           // para0.Range.Text = "Project: " + txtbx_proj_name.Text + " Report";
-           // para0.Range.set_Style("Title");
-           // para0.Range.InsertParagraphAfter();
-
-
-           // Word.Paragraph paraA = word_doc.Paragraphs.Add(oMissing);
-           // //Create bookmark
-           //// paraA.Range.Bookmarks.Add("bookmark1", oMissing);
-           // paraA.Range.Text = "Before replacement";
-           //paraA.Range.InsertParagraphAfter();
-
-
-
-
-
-            ReplaceBookmarkText(word_doc, "bookmark1", "Hello");
-            ReplaceBookmarkText(word_doc, "bookmark2", "Bottom one");
-            ReplaceBookmarkText(word_doc, "bookmark3", "Top Banana");
-
-            string[] items = new string[] {};
+            // find all the bookmarks in the doc and list them out.
+            int bkmk_count = 0;
+            int bkmk_num = 0;
+           // string[] items = new string[] { };
+            List<Word.Bookmark> bmarks = new List<Word.Bookmark>();
             foreach (Word.Bookmark bookmark in word_doc.Bookmarks)
             {
-                items = new List<string>(items) { bookmark.Name }.ToArray();
+                ////add a label to the screen
+                //Label namelabel = new Label();
+                //namelabel.Location = new Point(100, 100+bkmk_count);
+                //namelabel.Text = bookmark.Name;
+                //tab_bookmark_update.Controls.Add(namelabel);
+
+                // items = new List<string>(items) { bookmark.Name }.ToArray(); // Add to list
+                bmarks.Add(bookmark);
+                
             }
 
 
-            int count = word_doc.Bookmarks.Count;
-            for (int i = 1; i < count + 1; i++)
+
+
+
+            // Re-sort list in order of appearance
+            bmarks = bmarks.OrderBy(b => b.Start).ToList(); // LINQ
+
+            List<string> slBMarks = new List<string>();
+            foreach (Word.Bookmark b in bmarks)
             {
-                object oRange = word_doc.Bookmarks[i].Range;
-                object saveWithDocument = true;
-                object missing = Type.Missing;
-                string pictureName =
-                    @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png";
+                //add a label to the screen
+                Label namelabel = new Label();
+                namelabel.Location = new Point(100, 100 + bkmk_count);
+                namelabel.Text = b.Name;
+                tab_bookmark_update.Controls.Add(namelabel);
+                bkmk_count += 40;
+                bkmk_num++;
 
-                if (items[i-1] == "Picture1")
-                {
-                    cleanBookmark("Picture1"); //
-                    word_doc.InlineShapes.AddPicture(pictureName, ref missing, ref saveWithDocument, ref oRange);
-                }
+                slBMarks.Add(b.Name); // Accumulate bookmark names
             }
 
-            //Word.Bookmarks books = word_doc.Bookmarks;
-            //Word.Range rngImage = books["Picture1"].Range;
-            //rngImage.InlineShapes.AddPicture(@"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png");
-            //rngImage.InlineShapes[2].Delete();
 
-
-            /*
-
-            // Create a header.
-            Word.Paragraph para1 = word_doc.Paragraphs.Add(oMissing);
-            para1.Range.set_Style("Heading 1");
-            para1.Range.Text = "Income";
-            para1.Range.InsertParagraphAfter();
-
-            //add text to paragraph not I am also using CR and LF
-            Word.Paragraph para2 = word_doc.Paragraphs.Add(oMissing);
-            para2.Range.set_Style("Normal");
-            para2.Range.Text = "Loads and Loads of text More much more";
-            para2.Range.InsertParagraphAfter();
-
-            WinWord.Visible = false; //Make invisible so we do not need to keep redrawing the whole document.
-            //Create a 5X5 table and insert some dummy record 
-            Word.Paragraph para3 = word_doc.Paragraphs.Add(oMissing);
-            Word.Table myTable = word_doc.Tables.Add(para3.Range, 5, 5, oMissing, oMissing);
-
-            myTable.Borders.Enable = 1;
-            foreach (Word.Row row in myTable.Rows)
-            {
-                foreach (Word.Cell cell in row.Cells)
-                {
-                    //Header row  
-                    if (cell.RowIndex == 1)
-                    {
-                        cell.Range.Text = "Column " + cell.ColumnIndex;
-                        cell.Range.Font.Bold = 1;
-                        //other format properties goes here  
-                        cell.Range.Font.Name = "verdana";
-                        cell.Range.Font.Size = 10;
-                        cell.Range.Font.ColorIndex = Word.WdColorIndex.wdBrightGreen;
-                        cell.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray25;
-                        //Center alignment for the Header cells  
-                        cell.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                        cell.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    }
-                    //Data row  
-                    else
-                    {
-                        cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                    }
-                }
-            }
-
-            myTable.Columns[1].Width = WinWord.InchesToPoints(1); //Change width of columns 1 & 2
-            myTable.Columns[2].Width = WinWord.InchesToPoints(1);
-            para3.Range.InsertParagraphAfter();
-
-            WinWord.Visible = true;
-            Word.Paragraph para5 = word_doc.Paragraphs.Add(oMissing);
-            string picture_file =
-                @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\mypic.png";
-
-            // Add the picture to the paragraph.
-            Word.InlineShape inline_shape = para5.Range.InlineShapes.AddPicture(
-                picture_file, oMissing, oMissing, oMissing);
-
-            para5.Range.InsertParagraphAfter();
+            cleanBookmark("bookmark1"); // Remove everything at this bookmark so we can replace it
+            ReplaceBookmarkText(word_doc, "bookmark1", "Hello");
+            cleanBookmark("bookmark2"); // Remove everything at this bookmark so we can replace it
+            ReplaceBookmarkText(word_doc, "bookmark2", "Bottom one");
+            cleanBookmark("bookmark3"); // Remove everything at this bookmark so we can replace it
+            ReplaceBookmarkText(word_doc, "bookmark3", "Top Banana");
 
             
 
-            //Insert a chart.
-            object oEndOfDoc = "\\endofdoc"; \\endofdoc is a predefined bookmark 
-            object oRng = word_doc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            //int count = word_doc.Bookmarks.Count;
+            //for (int i = 1; i < count + 1; i++)
+            //{
+            //    object oRange = word_doc.Bookmarks[i].Range;
+            //    object saveWithDocument = true;
+            //    object missing = Type.Missing;
+            //    string pictureName =
+            //        @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png";
 
-            Word.Table oTable;
-            Word.Range wrdRng = word_doc.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            //    if (items[i-1] == "Picture1")
+            //    {
+            //        cleanBookmark("Picture1"); // Remove everything at this bookmark so we can replace it
+            //        word_doc.InlineShapes.AddPicture(pictureName, ref missing, ref saveWithDocument, ref oRange);
+            //    }
+            //}
 
-            Word.Paragraph para6 = word_doc.Paragraphs.Add(Type.Missing);
-            Word.InlineShape oShape;
-            object oClassType = "MSGraph.Chart.8";
-            wrdRng = word_doc.Bookmarks.get_Item(ref oEndOfDoc).Range;
-            oShape = wrdRng.InlineShapes.AddOLEObject(ref oClassType, ref oMissing,
-                ref oMissing, ref oMissing, ref oMissing,
-                ref oMissing, ref oMissing, ref oMissing);
-
-            //Demonstrate use of late bound oChart and oChartApp objects to
-            //manipulate the chart object with MSGraph.
-            object oChart;
-            object oChartApp;
-            oChart = oShape.OLEFormat.Object;
-            oChartApp = oChart.GetType().InvokeMember("Application",
-                BindingFlags.GetProperty, null, oChart, null);
-
-            //Change the chart type to Line.
-            object[] Parameters = new Object[1];
-            Parameters[0] = 4; //xlLine = 4; pie = 5;
-            oChart.GetType().InvokeMember("ChartType", BindingFlags.SetProperty,
-                null, oChart, Parameters);
-
-            //Update the chart image and quit MSGraph.
-            oChartApp.GetType().InvokeMember("Update",
-                BindingFlags.InvokeMethod, null, oChartApp, null);
-            oChartApp.GetType().InvokeMember("Quit",
-                BindingFlags.InvokeMethod, null, oChartApp, null);
-            //... If desired, you can proceed from here using the Microsoft Graph 
-            //Object model on the oChart and oChartApp objects to make additional
-            //changes to the chart.
-
-            //Set the width of the chart.
-            oShape.Width = WinWord.InchesToPoints(6.25f);
-            oShape.Height = WinWord.InchesToPoints(3.57f);
-
-            para6.Range.InsertParagraphAfter();
+           
 
 
 
-
-
+            /*
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PDF |*.pdf";
@@ -265,7 +173,8 @@ namespace Create_a_MS_Word_Report
         }
 
 
-
+        //Here we remove the bookmark,text, pictures and tables and then replace the bookmark
+        //back to it original place ready for you to put in the new items
 
         public void cleanBookmark(string bookmark)
         {
@@ -287,7 +196,7 @@ namespace Create_a_MS_Word_Report
 
 
 
-        //Choose teh template we will be using
+        //Choose the template we will be using
         private void btn_choose_doc_template_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog
