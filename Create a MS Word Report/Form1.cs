@@ -79,28 +79,17 @@ namespace Create_a_MS_Word_Report
             // find all the bookmarks in the doc and list them out.
             int bkmk_count = 0;
             int bkmk_num = 0;
-           // string[] items = new string[] { };
+           
             List<Word.Bookmark> bmarks = new List<Word.Bookmark>();
             foreach (Word.Bookmark bookmark in word_doc.Bookmarks)
             {
-                ////add a label to the screen
-                //Label namelabel = new Label();
-                //namelabel.Location = new Point(100, 100+bkmk_count);
-                //namelabel.Text = bookmark.Name;
-                //tab_bookmark_update.Controls.Add(namelabel);
-
-                // items = new List<string>(items) { bookmark.Name }.ToArray(); // Add to list
-                bmarks.Add(bookmark);
-                
+                bmarks.Add(bookmark); //this adds in alphabetical order
             }
-
-
-
-
-
+            
             // Re-sort list in order of appearance
             bmarks = bmarks.OrderBy(b => b.Start).ToList(); // LINQ
 
+            //Add the bookmark names to the GUI in labels
             List<string> slBMarks = new List<string>();
             foreach (Word.Bookmark b in bmarks)
             {
@@ -115,6 +104,7 @@ namespace Create_a_MS_Word_Report
                 slBMarks.Add(b.Name); // Accumulate bookmark names
             }
 
+            cleanBookmark("Alpha");
 
             cleanBookmark("bookmark1"); // Remove everything at this bookmark so we can replace it
             ReplaceBookmarkText(word_doc, "bookmark1", "Hello");
@@ -123,25 +113,15 @@ namespace Create_a_MS_Word_Report
             cleanBookmark("bookmark3"); // Remove everything at this bookmark so we can replace it
             ReplaceBookmarkText(word_doc, "bookmark3", "Top Banana");
 
-            
+            //change a picture
+            int range_count = 1;
+            string pictureName =
+                @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png";
+            string bookmarkname = "Picture1";
 
-            //int count = word_doc.Bookmarks.Count;
-            //for (int i = 1; i < count + 1; i++)
-            //{
-            //    object oRange = word_doc.Bookmarks[i].Range;
-            //    object saveWithDocument = true;
-            //    object missing = Type.Missing;
-            //    string pictureName =
-            //        @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png";
 
-            //    if (items[i-1] == "Picture1")
-            //    {
-            //        cleanBookmark("Picture1"); // Remove everything at this bookmark so we can replace it
-            //        word_doc.InlineShapes.AddPicture(pictureName, ref missing, ref saveWithDocument, ref oRange);
-            //    }
-            //}
-
-           
+            //change a picture at this bookmarkname for the picture named one.
+           ChangePicture(bmarks, pictureName, bookmarkname);
 
 
 
@@ -173,6 +153,29 @@ namespace Create_a_MS_Word_Report
         }
 
 
+
+        private void ChangePicture(List<Word.Bookmark> bmarks, string pictureName, string bookmarkname)
+        {
+            //change a picture
+            int range_count = 1;
+
+            foreach (Word.Bookmark b in bmarks)
+            {
+                object oRange = word_doc.Bookmarks[range_count].Range;
+                object saveWithDocument = true;
+                object missing = Type.Missing;
+                
+                if (b.Name == bookmarkname)
+                {
+                    cleanBookmark(bookmarkname); // Remove everything at this bookmark so we can replace it
+                    word_doc.InlineShapes.AddPicture(pictureName, ref missing, ref saveWithDocument, ref oRange);
+                }
+
+                range_count++;
+            }
+        }
+
+        
         //Here we remove the bookmark,text, pictures and tables and then replace the bookmark
         //back to it original place ready for you to put in the new items
 
