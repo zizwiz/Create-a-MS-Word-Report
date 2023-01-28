@@ -26,8 +26,8 @@ namespace Create_a_MS_Word_Report
         private object oFalse = false;
         private object oTemplatePath = "C:\\Users\\itobo\\source\\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\My text.com";
 
-        Word.Application WinWord = new Word.Application(); // create a word object and show it.
-        Word.Document word_doc = new Word.Document();
+        Word.Application WinWord = new Word.Application(); // open a word app in windows.
+        Word.Document word_doc = new Word.Document();      // open word doc in app.
 
         public Form1()
         {
@@ -40,7 +40,7 @@ namespace Create_a_MS_Word_Report
 
             Text += " : v" + Assembly.GetExecutingAssembly().GetName().Version; // put in the version number
 
-
+            btn_create.Visible = false; //only allow button when we have an open doc.
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -60,10 +60,8 @@ namespace Create_a_MS_Word_Report
             WinWord.Visible = true; //Set status for word application is to be visible or not.
             WinWord.ShowAnimation = false; //Set animation status for word application
 
-            // Create the Word document, choose your template here or you will get the default-default one.
-            // Add(Template, New Template, DocType, Visible).
-            word_doc = WinWord.Documents.Add(
-                ref oTemplatePath, ref oMissing, ref oMissing, ref oMissing);
+            List<Word.Bookmark> bmarks = FindBookmarks(2); //Get a list of bookmarks in the document
+
 
 
             if (chkbx_page_header.Checked) //Only create if we ticked to say so
@@ -76,33 +74,7 @@ namespace Create_a_MS_Word_Report
                 CreateFooter(word_doc);
             }
 
-            // find all the bookmarks in the doc and list them out.
-            int bkmk_count = 0;
-            int bkmk_num = 0;
-           
-            List<Word.Bookmark> bmarks = new List<Word.Bookmark>();
-            foreach (Word.Bookmark bookmark in word_doc.Bookmarks)
-            {
-                bmarks.Add(bookmark); //this adds in alphabetical order
-            }
             
-            // Re-sort list in order of appearance
-            bmarks = bmarks.OrderBy(b => b.Start).ToList(); // LINQ
-
-            //Add the bookmark names to the GUI in labels
-            List<string> slBMarks = new List<string>();
-            foreach (Word.Bookmark b in bmarks)
-            {
-                //add a label to the screen
-                Label namelabel = new Label();
-                namelabel.Location = new Point(100, 100 + bkmk_count);
-                namelabel.Text = b.Name;
-                tab_bookmark_update.Controls.Add(namelabel);
-                bkmk_count += 40;
-                bkmk_num++;
-
-                slBMarks.Add(b.Name); // Accumulate bookmark names
-            }
 
             cleanBookmark("Alpha");
 
@@ -220,7 +192,87 @@ namespace Create_a_MS_Word_Report
                 //The location of the template we will be using
                 oTemplatePath = openFileDialog1.FileName;
 
+                // Create the Word document, choose your template here or you will get the default-default one.
+                // Add(Template, New Template, DocType, Visible).
+                word_doc = WinWord.Documents.Add(
+                    ref oTemplatePath, ref oMissing, ref oMissing, ref oMissing);
+
+                btn_create.Visible = true;
             }
+
+            List<Word.Bookmark> myBookmarks = FindBookmarks(1); //we ignore return value
+        }
+
+        private List<Word.Bookmark> FindBookmarks(int type)
+        {
+            //type 1 = get list and write to GUI
+            //type 2 = get list only
+
+            // find all the bookmarks in the doc and list them out.
+            int bkmk_count = 0;
+            int bkmk_num = 0;
+
+            List<Word.Bookmark> bmarks = new List<Word.Bookmark>();
+            foreach (Word.Bookmark bookmark in word_doc.Bookmarks)
+            {
+                bmarks.Add(bookmark); //this adds in alphabetical order
+            }
+
+            if (type == 1) //write to GUI 
+            {
+                // Re-sort list in order of appearance
+                bmarks = bmarks.OrderBy(b => b.Start).ToList(); // LINQ
+
+                //Add the bookmark names to the GUI in labels
+                List<string> slBMarks = new List<string>();
+                foreach (Word.Bookmark b in bmarks)
+                {
+                    //add a label and textbox to the screen
+                    Label label = new Label();
+                    label.Name = "lbl_" + b.Name;
+                    label.Location = new Point(30, 100 + bkmk_count);
+                    label.Text = b.Name;
+                    tab_bookmark_update.Controls.Add(label);
+
+                    TextBox textBox = new TextBox();
+                    textBox.Name = "txtbx_" + b.Name;
+                    textBox.Location = new Point(150, 100 + bkmk_count);
+                    textBox.Width = 430;
+                    textBox.Text = label.Name + " : " + textBox.Name;
+                    tab_bookmark_update.Controls.Add(textBox);
+
+                    //Create new button.
+                    Button button = new Button();
+                    button.Name = "btn_" + b.Name;
+                    button.Text = "Get Data";
+                    button.Location = new Point(600, 100 + bkmk_count);
+                    button.Size = new Size(100, 20);
+                    tab_bookmark_update.Controls.Add(button);
+
+                    // add click event to the button.
+                    button.Click += new EventHandler(MyButton_Click);
+
+
+
+
+                    bkmk_count += 40;
+                    bkmk_num++;
+
+                    slBMarks.Add(b.Name); // Accumulate bookmark names
+                }
+            }
+
+            return bmarks;
+        }
+
+        // Event for all the bookmark buttons so we can get data from them.
+        private void MyButton_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            string buttonName = btn.Name;
+
+            MessageBox.Show(buttonName);
+
         }
     }
 }
