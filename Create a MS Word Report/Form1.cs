@@ -29,6 +29,7 @@ namespace Create_a_MS_Word_Report
         Word.Application WinWord = new Word.Application(); // open a word app in windows.
         Word.Document word_doc = new Word.Document();      // open word doc in app.
 
+        
         public Form1()
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace Create_a_MS_Word_Report
         {
             Close();
         }
-
+        
         private void btn_create_Click(object sender, EventArgs e)
         {
             // object oMissing = Missing.Value;
@@ -87,13 +88,23 @@ namespace Create_a_MS_Word_Report
 
             //change a picture
             int range_count = 1;
-            string pictureName =
-                @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\plane.png";
+            // string pictureName = 
+            //    @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\green_plane.png";
+            //  C:\Users\itobo\source\repos\Create-a-MS-Word-Report\Create a MS Word Report\bin\Debug\red_plane.png
+
+
             string bookmarkname = "Picture1";
+            string pictureName = ((TextBox)tab_bookmark_update.Controls["txtbx_Picture1"]).Text;
+
+            /* go over all textboxes if they follow this naming convention
+             * string[] t = new string[4];
+               for(int i=0; i<4; i++)
+               t[i] = ((TextBox)tableLayoutPanel1.Controls["TxtBox"+(i+1).ToString()]).Text;
+             */
 
 
             //change a picture at this bookmarkname for the picture named one.
-           ChangePicture(bmarks, pictureName, bookmarkname);
+            ChangePicture(bmarks, pictureName, bookmarkname);
 
 
 
