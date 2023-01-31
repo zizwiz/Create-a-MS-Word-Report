@@ -29,7 +29,7 @@ namespace Create_a_MS_Word_Report
         Word.Application WinWord = new Word.Application(); // open a word app in windows.
         Word.Document word_doc = new Word.Document();      // open word doc in app.
 
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -48,22 +48,20 @@ namespace Create_a_MS_Word_Report
         {
             Close();
         }
-        
+
         private void btn_create_Click(object sender, EventArgs e)
         {
-            // object oMissing = Missing.Value;
+            string myType = "";
+             object oMissing = Missing.Value;
 
             //This uses the styles from your default-default word doc template
             //change them below if you have your own template
-
-
-
+            WinWord.Visible = false; //needs to be here to stop RPC server issues. No idea why.
             WinWord.Visible = true; //Set status for word application is to be visible or not.
             WinWord.ShowAnimation = false; //Set animation status for word application
 
             List<Word.Bookmark> bmarks = FindBookmarks(2); //Get a list of bookmarks in the document
-
-
+            
 
             if (chkbx_page_header.Checked) //Only create if we ticked to say so
             {
@@ -75,37 +73,35 @@ namespace Create_a_MS_Word_Report
                 CreateFooter(word_doc);
             }
 
-            
+            foreach (Word.Bookmark b in bmarks)
+            {
+                myType = b.Name.Split('_')[0];
 
-            cleanBookmark("Alpha");
+                if (myType == "txt")
+                {
+                    cleanBookmark("txt_bookmark1"); // Remove everything at this bookmark so we can replace it
+                    ReplaceBookmarkText(word_doc, "txt_bookmark1", "Hello");
+                    cleanBookmark("txt_bookmark2"); // Remove everything at this bookmark so we can replace it
+                    ReplaceBookmarkText(word_doc, "txt_bookmark2", "Bottom one");
+                    cleanBookmark("txt_bookmark3"); // Remove everything at this bookmark so we can replace it
+                    ReplaceBookmarkText(word_doc, "txt_bookmark3", "Top Banana");
+                }
+                else if (myType == "img")
+                {
+                    //change a picture
+                    string bookmarkname = b.Name;
+                    string pictureName = ((TextBox) tab_bookmark_update.Controls["txtbx_" + bookmarkname]).Text;
 
-            cleanBookmark("bookmark1"); // Remove everything at this bookmark so we can replace it
-            ReplaceBookmarkText(word_doc, "bookmark1", "Hello");
-            cleanBookmark("bookmark2"); // Remove everything at this bookmark so we can replace it
-            ReplaceBookmarkText(word_doc, "bookmark2", "Bottom one");
-            cleanBookmark("bookmark3"); // Remove everything at this bookmark so we can replace it
-            ReplaceBookmarkText(word_doc, "bookmark3", "Top Banana");
+                    //change a picture at this bookmarkname for the picture named one.
+                    ChangePicture(bmarks, pictureName, bookmarkname);
+                }
+                else
+                {
+                  cleanBookmark(b.Name);
+                }
+                
 
-            //change a picture
-            int range_count = 1;
-            // string pictureName = 
-            //    @"C:\\Users\\itobo\\source\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\green_plane.png";
-            //  C:\Users\itobo\source\repos\Create-a-MS-Word-Report\Create a MS Word Report\bin\Debug\red_plane.png
-
-
-            string bookmarkname = "Picture1";
-            string pictureName = ((TextBox)tab_bookmark_update.Controls["txtbx_Picture1"]).Text;
-
-            /* go over all textboxes if they follow this naming convention
-             * string[] t = new string[4];
-               for(int i=0; i<4; i++)
-               t[i] = ((TextBox)tableLayoutPanel1.Controls["TxtBox"+(i+1).ToString()]).Text;
-             */
-
-
-            //change a picture at this bookmarkname for the picture named one.
-            ChangePicture(bmarks, pictureName, bookmarkname);
-
+            }
 
 
             /*
@@ -133,6 +129,10 @@ namespace Create_a_MS_Word_Report
                     MessageBox.Show(ex.Message);
                 }
             }*/
+
+
+
+
         }
 
 
@@ -147,7 +147,7 @@ namespace Create_a_MS_Word_Report
                 object oRange = word_doc.Bookmarks[range_count].Range;
                 object saveWithDocument = true;
                 object missing = Type.Missing;
-                
+
                 if (b.Name == bookmarkname)
                 {
                     cleanBookmark(bookmarkname); // Remove everything at this bookmark so we can replace it
@@ -158,7 +158,7 @@ namespace Create_a_MS_Word_Report
             }
         }
 
-        
+
         //Here we remove the bookmark,text, pictures and tables and then replace the bookmark
         //back to it original place ready for you to put in the new items
 
@@ -238,13 +238,23 @@ namespace Create_a_MS_Word_Report
                 List<string> slBMarks = new List<string>();
                 foreach (Word.Bookmark b in bmarks)
                 {
-                    //add a label and textbox to the screen
+                    //add a label to the screen
                     Label label = new Label();
                     label.Name = "lbl_" + b.Name;
-                    label.Location = new Point(30, 100 + bkmk_count);
+                    label.Location = new Point(40, 100 + bkmk_count);
                     label.Text = b.Name;
                     tab_bookmark_update.Controls.Add(label);
 
+                    //add a checkbox to the screen
+                    //we check it later if it is an image to be replaced.
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.Name = "chkbx_" + b.Name;
+                    checkBox.Location = new Point(10, 100 + bkmk_count);
+                    //get part before the underscore
+                    if ((b.Name.Split('_')[0]) == "img") checkBox.Checked = true;
+                    tab_bookmark_update.Controls.Add(checkBox);
+
+                    //add a textbox to the screen
                     TextBox textBox = new TextBox();
                     textBox.Name = "txtbx_" + b.Name;
                     textBox.Location = new Point(150, 100 + bkmk_count);
@@ -252,7 +262,7 @@ namespace Create_a_MS_Word_Report
                     textBox.Text = label.Name + " : " + textBox.Name;
                     tab_bookmark_update.Controls.Add(textBox);
 
-                    //Create new button.
+                    //add a button to the screen
                     Button button = new Button();
                     button.Name = "btn_" + b.Name;
                     button.Text = "Get Data";
@@ -262,10 +272,7 @@ namespace Create_a_MS_Word_Report
 
                     // add click event to the button.
                     button.Click += new EventHandler(MyButton_Click);
-
-
-
-
+                    
                     bkmk_count += 40;
                     bkmk_num++;
 
@@ -279,10 +286,36 @@ namespace Create_a_MS_Word_Report
         // Event for all the bookmark buttons so we can get data from them.
         private void MyButton_Click(object sender, EventArgs e)
         {
+           //Get the name of the button that wa just pressed
             Button btn = (Button)sender;
-            string buttonName = btn.Name;
+            
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Choose Image File.",
+                CheckFileExists = true,
+                CheckPathExists = true,
 
-            MessageBox.Show(buttonName);
+                DefaultExt = "png",
+                Filter = "Image files (*.png)|*.png",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //get a list of the controls and if a textbox check its name
+                //if the name is same as the one we are looking for then we add the file name
+                //to the text box
+                foreach (Control c in tab_bookmark_update.Controls)
+                {
+                    if ((c is TextBox) && (c.Name == "txtbx_" + btn.Name.Substring(btn.Name.IndexOf("_") + 1)))
+                    {
+                        c.Text = openFileDialog1.FileName;
+                    }
+                }
+
+            }
 
         }
     }
