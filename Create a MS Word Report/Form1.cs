@@ -52,7 +52,7 @@ namespace Create_a_MS_Word_Report
         private void btn_create_Click(object sender, EventArgs e)
         {
             string myType = "";
-             object oMissing = Missing.Value;
+            object oMissing = Missing.Value;
 
             //This uses the styles from your default-default word doc template
             //change them below if you have your own template
@@ -61,7 +61,7 @@ namespace Create_a_MS_Word_Report
             WinWord.ShowAnimation = false; //Set animation status for word application
 
             List<Word.Bookmark> bmarks = FindBookmarks(2); //Get a list of bookmarks in the document
-            
+
 
             if (chkbx_page_header.Checked) //Only create if we ticked to say so
             {
@@ -75,32 +75,27 @@ namespace Create_a_MS_Word_Report
 
             foreach (Word.Bookmark b in bmarks)
             {
+                //Text is prefixed txt_ and images by img_
                 myType = b.Name.Split('_')[0];
 
                 if (myType == "txt")
                 {
-                    cleanBookmark("txt_bookmark1"); // Remove everything at this bookmark so we can replace it
-                    ReplaceBookmarkText(word_doc, "txt_bookmark1", "Hello");
-                    cleanBookmark("txt_bookmark2"); // Remove everything at this bookmark so we can replace it
-                    ReplaceBookmarkText(word_doc, "txt_bookmark2", "Bottom one");
-                    cleanBookmark("txt_bookmark3"); // Remove everything at this bookmark so we can replace it
-                    ReplaceBookmarkText(word_doc, "txt_bookmark3", "Top Banana");
+                    cleanBookmark(b.Name); // Remove everything at this bookmark so we can replace it
+                    ReplaceBookmarkText(word_doc, b.Name, ((TextBox)tab_bookmark_update.Controls["txtbx_" + b.Name]).Text);
                 }
                 else if (myType == "img")
                 {
                     //change a picture
                     string bookmarkname = b.Name;
-                    string pictureName = ((TextBox) tab_bookmark_update.Controls["txtbx_" + bookmarkname]).Text;
+                    string pictureName = ((TextBox)tab_bookmark_update.Controls["txtbx_" + bookmarkname]).Text;
 
                     //change a picture at this bookmarkname for the picture named one.
                     ChangePicture(bmarks, pictureName, bookmarkname);
                 }
                 else
                 {
-                  cleanBookmark(b.Name);
+                    cleanBookmark(b.Name);
                 }
-                
-
             }
 
 
@@ -161,7 +156,6 @@ namespace Create_a_MS_Word_Report
 
         //Here we remove the bookmark,text, pictures and tables and then replace the bookmark
         //back to it original place ready for you to put in the new items
-
         public void cleanBookmark(string bookmark)
         {
             var start = word_doc.Bookmarks[bookmark].Start;
@@ -272,7 +266,7 @@ namespace Create_a_MS_Word_Report
 
                     // add click event to the button.
                     button.Click += new EventHandler(MyButton_Click);
-                    
+
                     bkmk_count += 40;
                     bkmk_num++;
 
@@ -286,9 +280,9 @@ namespace Create_a_MS_Word_Report
         // Event for all the bookmark buttons so we can get data from them.
         private void MyButton_Click(object sender, EventArgs e)
         {
-           //Get the name of the button that wa just pressed
+            //Get the name of the button that wa just pressed
             Button btn = (Button)sender;
-            
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Choose Image File.",
@@ -309,9 +303,14 @@ namespace Create_a_MS_Word_Report
                 //to the text box
                 foreach (Control c in tab_bookmark_update.Controls)
                 {
-                    if ((c is TextBox) && (c.Name == "txtbx_" + btn.Name.Substring(btn.Name.IndexOf("_") + 1)))
-                    {
+                    //if ((c is TextBox) && (c.Name == "txtbx_" + btn.Name.Substring(btn.Name.IndexOf("_") + 1)))
+                        if ((c is TextBox) && (btn.Name.Substring(btn.Name.IndexOf("_") + 1) == "img"))
+                        {
                         c.Text = openFileDialog1.FileName;
+                    }
+                    else if ((c is TextBox) && (btn.Name.Substring(btn.Name.IndexOf("_") + 1) == "txt"))
+                    {
+                        MessageBox.Show("hello");
                     }
                 }
 
