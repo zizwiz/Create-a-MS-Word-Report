@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -280,18 +281,22 @@ namespace Create_a_MS_Word_Report
         // Event for all the bookmark buttons so we can get data from them.
         private void MyButton_Click(object sender, EventArgs e)
         {
+            string myType = "";
+            string myName = "";
+            
             //Get the name of the button that wa just pressed
             Button btn = (Button)sender;
+            string senderBtnType = btn.Name.Split('_')[1];
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                Title = "Choose Image File.",
+                
+                Title = "Choose File.",
+                Filter = "Image files (*.png)|*.png|Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                    
                 CheckFileExists = true,
                 CheckPathExists = true,
-
-                DefaultExt = "png",
-                Filter = "Image files (*.png)|*.png",
-                FilterIndex = 2,
+                FilterIndex = 1,
                 RestoreDirectory = true,
 
             };
@@ -303,15 +308,38 @@ namespace Create_a_MS_Word_Report
                 //to the text box
                 foreach (Control c in tab_bookmark_update.Controls)
                 {
-                    //if ((c is TextBox) && (c.Name == "txtbx_" + btn.Name.Substring(btn.Name.IndexOf("_") + 1)))
-                        if ((c is TextBox) && (btn.Name.Substring(btn.Name.IndexOf("_") + 1) == "img"))
-                        {
-                        c.Text = openFileDialog1.FileName;
-                    }
-                    else if ((c is TextBox) && (btn.Name.Substring(btn.Name.IndexOf("_") + 1) == "txt"))
+                    //Make sure we have the correct items and if so write the file name in it.
+                    myType = btn.Name.Split('_')[1] + "_" + btn.Name.Split('_')[2];
+                    myName = c.Name.Split('_')[1] + "_" + c.Name.Split('_')[2];
+
+                    if ((c is TextBox) && (myType == myName) && (senderBtnType == "img"))
                     {
-                        MessageBox.Show("hello");
+                        try
+                        {
+                            c.Text = openFileDialog1.FileName;
+                            myType = "";
+                            break;
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show("not a image file");
+                        }
+
                     }
+                    else if ((c is TextBox) && (myType == myName) && (senderBtnType == "txt"))
+                    {
+                        try
+                        {
+                            c.Text = File.ReadAllText(openFileDialog1.FileName);
+                            myType = "";
+                            break;
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show("not a text file");
+                        }
+                    }
+
                 }
 
             }
