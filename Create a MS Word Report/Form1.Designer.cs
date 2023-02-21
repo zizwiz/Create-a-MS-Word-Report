@@ -1139,6 +1139,7 @@ namespace Create_a_MS_Word_Report
             // 
             // tab_bookmark_update
             // 
+            this.tab_bookmark_update.AutoScroll = true;
             this.tab_bookmark_update.Location = new System.Drawing.Point(4, 29);
             this.tab_bookmark_update.Name = "tab_bookmark_update";
             this.tab_bookmark_update.Size = new System.Drawing.Size(1072, 697);

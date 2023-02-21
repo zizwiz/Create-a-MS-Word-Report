@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word; // now got to ref and in properties set "Embed Interop types" to false
 
@@ -25,7 +28,7 @@ namespace Create_a_MS_Word_Report
         private object oMissing = Missing.Value;
         private object oTrue = true;
         private object oFalse = false;
-        private object oTemplatePath = "C:\\Users\\itobo\\source\\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\My text.com";
+        //  private object oTemplatePath = "C:\\Users\\itobo\\source\\repos\\Create-a-MS-Word-Report\\Create a MS Word Report\\bin\\Debug\\My text.com";
 
         Word.Application WinWord = new Word.Application(); // open a word app in windows.
         Word.Document word_doc = new Word.Document();      // open word doc in app.
@@ -43,6 +46,7 @@ namespace Create_a_MS_Word_Report
             Text += " : v" + Assembly.GetExecutingAssembly().GetName().Version; // put in the version number
 
             btn_create.Visible = false; //only allow button when we have an open doc.
+
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -52,12 +56,13 @@ namespace Create_a_MS_Word_Report
 
         private void btn_create_Click(object sender, EventArgs e)
         {
+
+
             string myType = "";
             object oMissing = Missing.Value;
 
             //This uses the styles from your default-default word doc template
             //change them below if you have your own template
-            WinWord.Visible = false; //needs to be here to stop RPC server issues. No idea why.
             WinWord.Visible = true; //Set status for word application is to be visible or not.
             WinWord.ShowAnimation = false; //Set animation status for word application
 
@@ -82,7 +87,12 @@ namespace Create_a_MS_Word_Report
                 if (myType == "txt")
                 {
                     cleanBookmark(b.Name); // Remove everything at this bookmark so we can replace it
-                    ReplaceBookmarkText(word_doc, b.Name, ((TextBox)tab_bookmark_update.Controls["txtbx_" + b.Name]).Text);
+
+                    if (((TextBox)tab_bookmark_update.Controls["txtbx_" + b.Name]).Text != "")
+                    {
+                        ReplaceBookmarkText(word_doc, b.Name,
+                            ((TextBox)tab_bookmark_update.Controls["txtbx_" + b.Name]).Text);
+                    }
                 }
                 else if (myType == "img")
                 {
@@ -99,35 +109,33 @@ namespace Create_a_MS_Word_Report
                 }
             }
 
-
-            /*
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF |*.pdf";
-            saveFileDialog.Title = "Save Document";
-            saveFileDialog.DefaultExt = ".pdf";
-            saveFileDialog.FileName = "Sample.pdf";
-
-            DialogResult result = saveFileDialog.ShowDialog();
-            saveFileDialog.RestoreDirectory = true;
-
-            if (result == DialogResult.OK && saveFileDialog.FileName != "")
-            {
-                try
-                {
-                    word_doc.SaveAs(saveFileDialog.FileName, Word.WdSaveFormat.wdFormatPDF,
-                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                        ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                        ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }*/
+            //WinWord.Quit(ref oTrue, ref oMissing, ref oMissing); //Can Save on Exit
 
 
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.Filter = "PDF |*.pdf";
+            //saveFileDialog.Title = "Save Document";
+            //saveFileDialog.DefaultExt = ".pdf";
+            //saveFileDialog.FileName = "Sample.pdf";
 
+            //DialogResult result = saveFileDialog.ShowDialog();
+            //saveFileDialog.RestoreDirectory = true;
+
+            //if (result == DialogResult.OK && saveFileDialog.FileName != "")
+            //{
+            //    try
+            //    {
+            //        word_doc.SaveAs(saveFileDialog.FileName, Word.WdSaveFormat.wdFormatPDF,
+            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+            //            ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
+            
 
         }
 
@@ -195,13 +203,11 @@ namespace Create_a_MS_Word_Report
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //The location of the template we will be using
-                oTemplatePath = openFileDialog1.FileName;
 
                 // Create the Word document, choose your template here or you will get the default-default one.
                 // Add(Template, New Template, DocType, Visible).
                 word_doc = WinWord.Documents.Add(
-                    ref oTemplatePath, ref oMissing, ref oMissing, ref oMissing);
+                    openFileDialog1.FileName, ref oMissing, ref oMissing, ref oMissing);
 
                 btn_create.Visible = true;
             }
@@ -254,7 +260,7 @@ namespace Create_a_MS_Word_Report
                     textBox.Name = "txtbx_" + b.Name;
                     textBox.Location = new Point(150, 100 + bkmk_count);
                     textBox.Width = 430;
-                    textBox.Text = label.Name + " : " + textBox.Name;
+                    //textBox.Text = label.Name + " : " + textBox.Name; //just test text to add to the screen
                     tab_bookmark_update.Controls.Add(textBox);
 
                     //add a button to the screen
@@ -283,17 +289,17 @@ namespace Create_a_MS_Word_Report
         {
             string myType = "";
             string myName = "";
-            
+
             //Get the name of the button that wa just pressed
             Button btn = (Button)sender;
             string senderBtnType = btn.Name.Split('_')[1];
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                
+
                 Title = "Choose File.",
                 Filter = "Image files (*.png)|*.png|Text files (*.txt)|*.txt|All files (*.*)|*.*",
-                    
+
                 CheckFileExists = true,
                 CheckPathExists = true,
                 FilterIndex = 1,
@@ -344,6 +350,56 @@ namespace Create_a_MS_Word_Report
 
             }
 
+        }
+
+        static Image ReSizeImage(Image imgPhoto, int Width, int Height)
+        {
+            int sourceWidth = imgPhoto.Width;
+            int sourceHeight = imgPhoto.Height;
+            int sourceX = 0;
+            int sourceY = 0;
+            int destX = 0;
+            int destY = 0;
+
+            float nPercent = 0;
+            float nPercentW = 0;
+            float nPercentH = 0;
+
+            nPercentW = ((float)Width / (float)sourceWidth);
+            nPercentH = ((float)Height / (float)sourceHeight);
+            if (nPercentH < nPercentW)
+            {
+                nPercent = nPercentH;
+                destX = System.Convert.ToInt16((Width -
+                                                (sourceWidth * nPercent)) / 2);
+            }
+            else
+            {
+                nPercent = nPercentW;
+                destY = System.Convert.ToInt16((Height -
+                                                (sourceHeight * nPercent)) / 2);
+            }
+
+            int destWidth = (int)(sourceWidth * nPercent);
+            int destHeight = (int)(sourceHeight * nPercent);
+
+            Bitmap bmPhoto = new Bitmap(Width, Height,
+                PixelFormat.Format24bppRgb);
+            bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
+                imgPhoto.VerticalResolution);
+
+            Graphics grPhoto = Graphics.FromImage(bmPhoto);
+            grPhoto.Clear(Color.Red);
+            grPhoto.InterpolationMode =
+                InterpolationMode.HighQualityBicubic;
+
+            grPhoto.DrawImage(imgPhoto,
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
+                GraphicsUnit.Pixel);
+
+            grPhoto.Dispose();
+            return bmPhoto;
         }
     }
 }
