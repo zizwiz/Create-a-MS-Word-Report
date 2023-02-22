@@ -173,13 +173,18 @@ namespace Create_a_MS_Word_Report
             range.Delete();
             //The Delete() only deletes text so if you got tables in the doc it leaves the tables empty. 
             //The following removes the tables in the current range.
-            if (range.Tables.Count != 0)
-            {
-                for (int i = 1; i <= range.Tables.Count; i++)
-                {
-                    range.Tables[i].Delete();
-                }
-            }
+
+            //uncomment this section to delete the table
+            //if (range.Tables.Count != 0)
+            //{
+                
+
+                //for (int i = 1; i <= range.Tables.Count; i++)
+                //{
+                //    range.Tables[i].Delete();
+                //}
+            //}
+
             word_doc.Bookmarks.Add(bookmark, range);
         }
 
@@ -352,6 +357,7 @@ namespace Create_a_MS_Word_Report
 
         }
 
+        //function to resize images. We do not use at the moment but leave in still in case we need it later
         static Image ReSizeImage(Image imgPhoto, int Width, int Height)
         {
             int sourceWidth = imgPhoto.Width;
